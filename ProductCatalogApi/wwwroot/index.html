@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dinamicki Katalog proizvoda</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Dinamicki katalog proizvoda</h1>
+      
+      <div class="role-selector">
+        <label for="role">Izaberi ulogu:</label>
+        <select id="role">
+          <option value="user">Kupac</option>
+          <option value="admin">Administrator</option>
+        </select>
+      </div>
+    </header>
+
+    <main>
+      <section class="form-section admin-only">
+        <h2>Dodaj novi proizvod</h2>
+        
+        <form id="productForm">
+          <div class="form-group">
+            <label for="type">Tip proizvoda</label>
+            <input type="text" id="type" placeholder="npr. odeca, elektronika, knjiga" required />
+          </div>
+
+          <div class="form-group">
+            <label for="name">Naziv</label>
+            <input type="text" id="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="price">Cena (RSD)</label>
+            <input type="number" id="price" min="1" step="1" required />
+          </div>
+
+          <div class="form-group">
+            <label for="imageUrl">URL slike proizvoda</label>
+            <input type="url" id="imageUrl" placeholder="npr. https://example.com/slika.jpg" />
+          </div>
+
+          <div class="dynamic-fields" id="dynamicFields"></div>
+
+          <div class="buttons">
+            <button type="button" id="addFieldBtn">+ Dodaj specificno polje</button>
+            <button type="submit">Sacuvaj proizvod</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="search-section user-only">
+        <h2>Pretrazi proizvode</h2>
+        <input type="text" id="searchInput" placeholder="Pretrazi po nazivu ili tipu..." />
+      </section>
+
+      <section class="list-section">
+        <h2>Proizvodi u bazi</h2>
+     
+        <div id="productsList" class="products-grid"></div>
+      </section>
+    </main>
+
+  </div>
+
+  <div id="editModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeEditModal()">×</span>
+      <h2>Izmeni proizvod</h2>
+
+      <form id="editForm">
+        <input type="hidden" id="editId" />
+
+        <div class="form-group">
+          <label for="editType">Tip proizvoda</label>
+          <input type="text" id="editType" required />
+        </div>
+
+        <div class="form-group">
+          <label for="editName">Naziv</label>
+          <input type="text" id="editName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="editPrice">Cena (RSD)</label>
+          <input type="number" id="editPrice" min="1" step="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="editImageUrl">URL slike</label>
+          <input type="url" id="editImageUrl" />
+        </div>
+
+        <!-- Dinamicka polja za ostale atribute -->
+        <div id="editDynamicFields" class="dynamic-fields"></div>
+
+        <div class="buttons">
+          <button type="button" onclick="addEditDynamicField()">+ Dodaj novo polje</button>
+          <button type="submit">Sacuvaj izmene</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>
